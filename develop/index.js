@@ -137,6 +137,47 @@ function addEmployee() {
     });
 }
 
+function addRole(){
+    const questions = [
+      {
+        name: "title",
+        message: "What is the role you want to add?"
+      },
+      {
+        name: "salary",
+        message: "What is the salary for this role?"
+      },
+      {
+        name: "department",
+        message: "Under which department do you want this role to be added?"
+    }
+];
+
+prompt(questions).then(({ title, salary, department}) => {
+    const insertQuery = "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
+    const getDepartmentQuery = "SELECT id FROM department WHERE department_name = ?";
+    connection.promise().query(getDepartmentQuery, department).then(([results]) => {
+      if (results.lengh === 0) {
+        console.log(`Dpartment ${department} does not exist.`);
+        startQuestions();
+        return;
+      }
+      const departmentId = results[0].id;
+      connection.promise().query(insertQuery, [title, salary, departmentId]).then(() => {
+        console.log(`Role ${title} added to ${department} department.`);
+        startQuestions();
+      })
+      .catch((error) => {
+        console.error(error);
+        startQuestions();
+      })
+    })
+  })
+}
+
+
+
+
 
   
 
