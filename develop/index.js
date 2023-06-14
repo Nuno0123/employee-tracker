@@ -71,3 +71,20 @@ function startQuestions() {
   });
 }
 
+function viewAllEmployees() {
+    const data = connection.promise().query("SELECT * FROM employee");
+    data.then(([data]) => {
+      console.table(data);
+      startQuestions();
+    });
+  }
+
+  function viewAllRoles() {
+    const data = connection.promise().query("SELECT * FROM role");
+    data.then(([data]) => {
+      console.table(data);
+      startQuestions();
+    });
+  }
+
+
