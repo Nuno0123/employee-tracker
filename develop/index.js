@@ -175,6 +175,39 @@ prompt(questions).then(({ title, salary, department}) => {
   })
 }
 
+function removeRole() {
+    const getRoleQuery = "SELECT * FROM role";
+    connection.promise().query(getRoleQuery).then(([roles]) => {
+      const roleChoices = roles.map((role) => {
+        return {
+          name: role.title,
+          value: role.id,
+        };
+      });
+      const questions = {
+        name: "roleId",
+        type: "list",
+        message: "Which role do you want to remove?",
+        choices: roleChoices,
+      };
+      prompt(questions).then(({roleId}) => {
+        const deleteQuery = "DELETE FROM role WHERE id =?";
+        connection.promise().query(deleteQuery, roleId).then(() => {
+          console.log("Role removed successfully.");
+          startQuestions();
+        })
+        .catch((error) => {
+          console.error(error);
+          startQuestions();
+        });
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      startQuestions();
+    })
+}
+
 
 
 
