@@ -208,6 +208,60 @@ function removeRole() {
     })
 }
 
+function addDepartment(){
+    prompt([
+      {
+        name: "departmentName",
+        message: "What is the name of the department that you want to add?"
+      }
+    ]).then(({departmentName}) => {
+      const query = connection.promise().query("INSERT INTO department (department_name) VALUES (?)",
+      [departmentName]
+      );
+      query.then(() => {
+        console.log(`Department '${departmentName}' added successfully.`);
+        startQuestions();
+      }).catch(error => {
+        console.error(error);
+        startQuestions();
+      });
+    });
+  }
+
+  function removeDepartment() {
+    const departmentData = connection.promise().query('SELECT * FROM department');
+    departmentData.then(([data]) => {
+      const departmentChoices = data.map(({id, department_name}) => ({
+        name: department_name,
+        value: id,
+      }));
+  
+      prompt({
+        type: 'list',
+        name: 'selectedDepartment',
+        message: 'Which department would you like to remove?',
+        choices: departmentChoices,
+      }).then(res => {
+        const departmentId = res.selectedDepartment;
+  
+        connection.promise().query('DELETE FROM department WHERE id = ?', departmentId)
+          .then(() => {
+            console.log(`Department with id ${departmentId} has been removed successfully.\n`);
+            startQuestions();
+          })
+          .catch(err => console.log(err));
+      });
+    });
+  }
+  
+  function exit() {
+      console.log("Goodbye!");
+      process.exit(0);
+    }
+  
+  startQuestions();
+  
+
 
 
 
