@@ -25,8 +25,12 @@ This app helps keep track of all your employees, their roles, and departments th
 You can use this app through git bash, using the command line. cd into employee-tracker/develop directory, run "node index.js" 
 Navigate throught the sections prompted, and select the one that you want to view or modify. You can add or remove emplyees, roles, or departments as you need. When you are finished, sipmly select exit, and you will return in your directory.
 
+## Link
+
+[Demo](https://drive.google.com/file/d/1cuMCVFXTPYkGbnUVyvAHDzeR9VVp3-uQ/view)
+
 ## Preview 
-![Preview]
+![Preview](assets/img/preview-screenshot.png)
 
 ## License 
   
