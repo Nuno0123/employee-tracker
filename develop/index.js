@@ -4,12 +4,14 @@ const { prompt } = require("inquirer");
 require("console.table");
 dotenv.config();
 
+
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
+
 
 connection.connect((err) => {
   if (err) throw err;
@@ -120,7 +122,7 @@ function addEmployee() {
             name: `${first_name} ${last_name}`,
             value: id,
           }));
-          managerChoices.unshift({name: 'None', value: null});
+          managerChoices.unshift({name: 'None', value: -1});
 
           prompt({
             type: 'list',

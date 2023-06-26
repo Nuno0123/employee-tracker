@@ -1,3 +1,4 @@
+USE employeTracker_db;
 INSERT INTO department (department_name)
 VALUES ("Goal"),
        ("Defence"),
